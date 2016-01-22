@@ -1,6 +1,9 @@
 dependencies:
   override:
-    - exit 0
+    - git clone https://github.com/theory/pgtap
+    - make && make installcheck && sudo make install:
+        pwd: pgtap
+    - psql -c "CREATE EXTENSION pgtap;"
 
 test:
   override:
