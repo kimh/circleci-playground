@@ -15,4 +15,5 @@ test:
     - python -c "import sys; print(sys.maxunicode)"
     - deactivate 
     - python -c "import sys; print(sys.maxunicode)"
+    - pip install --upgrade pip==6.1.1
 
