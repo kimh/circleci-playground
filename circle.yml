@@ -19,9 +19,7 @@ machine:
     - sudo apt-get purge mysql-common-5.6 mysql-server-core-5.6 mysql-client-core-5.6 || echo "Failed!"
     - sudo apt-get autoremove --purge
     - sudo rm -rf /var/lib/mysql
-dependencies:
-  override:
-    - exit 0
+
 dependencies:
   pre:
     # Install Elasticsearch 1.7.2
