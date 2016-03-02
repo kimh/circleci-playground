@@ -1,20 +1,55 @@
+checkout:
+  post:
+    - git submodule sync
+    - git submodule update --init --recursive
 machine:
   python:
     version: 2.7.6
-
   pre:
+    - curl -s https://packagecloud.io/install/repositories/circleci/trusty/script.deb.sh | sudo bash
     - sudo apt-get install circleci-python-2.7.6
-
+  environment:
+    DEBIAN_FRONTEND: "noninteractive"
+    TICTAIL_CONFIG_DIRECTORY: "`pwd`/web/tests/ci"
+    PIP: "pip"
+  services:
+    - redis
+#  post:
+#    # Remove MySQL 5.6
+#    - sudo apt-get purge mysql-common-5.6 mysql-server-core-5.6 mysql-client-core-5.6 || echo "Failed!"
+#    - sudo apt-get autoremove --purge
+#    - sudo rm -rf /var/lib/mysql
 dependencies:
   override:
     - exit 0
-
+#dependencies:
+#  pre:
+#    # Install Elasticsearch 1.7.2
+#    - sudo apt-get install wget
+#    - wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.7.2.tar.gz
+#    - tar -zxvf elasticsearch-1.7.2.tar.gz
+#    - mv $TICTAIL_CONFIG_DIRECTORY/elasticsearch.yml ./elasticsearch-1.7.2/config/elasticsearch.yml
+#    - nohup bash -c "./elasticsearch-1.7.2/bin/elasticsearch &"
+#
+#    # Install MySQL 5.5
+#    - sudo apt-get update
+#    - sudo apt-get -q -y install mysql-server-5.5 mysql-client-5.5
+#    - mysql -u root -e "CREATE USER 'ubuntu'@'localhost'"
+#    - mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'ubuntu'@'localhost' WITH GRANT OPTION"
+#    - mysql -u root -e "FLUSH PRIVILEGES"
+#  override:
+#    - gem uninstall sass --all
+#    - gem install sass --version 3.2.12
+#    - gem install compass --version 0.12.2
+#    - pip install --upgrade pip==6.1.1
+#    - make install
+#database:
+#  override:
+#    - mysql -u ubuntu -e "CREATE DATABASE tictail_test;"
+#    - mysql -u ubuntu tictail_test < tests/ci/setup-db-user.sql
+#    - sleep 5
 test:
   override:
-    #- python -c "import sysconfig; print(sysconfig.get_config_vars('CONFIG_ARGS'))" 
-    #- python -c "import sys; print(sys.maxunicode)"
-    #- deactivate 
-    #- python -c "import sys; print(sys.maxunicode)"
-    #- pip install --upgrade pip==6.1.1
     - exit 0
+~
 
