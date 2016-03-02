@@ -51,5 +51,4 @@ dependencies:
 test:
   override:
     - exit 0
-~
 
